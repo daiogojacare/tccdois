@@ -1,0 +1,263 @@
+
+header {
+    height: 360px;
+    z-index: 10;
+  }
+  
+  .header-banner {
+    background-color: #801300;
+    background-image: url('../fotos/cantinaentrada.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 300px;
+  }
+  
+  header h1 {
+    background-color: #8013009c;
+    color: #ffffff;
+    padding: 0 1rem;
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+  }
+  
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  
+  nav {
+    width: 100%;
+    height: 60px;
+    background: #801300;
+    z-index: 10;
+  }
+  
+  nav div {
+    color: #ffffff;
+    font-size: 2rem;
+    line-height: 60px;
+    position: absolute;
+    top: 0;
+    left: 2%;
+    visibility: hidden;
+  }
+  
+  .visible-title {
+    visibility: visible;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    margin: 0 2% auto 0;
+    padding-left: 0;
+    text-align: right;
+    max-width: 100%;
+  }
+  
+  nav ul li {
+    display: inline-block;
+    line-height: 60px;
+    margin-left: 10px;
+  }
+  
+  nav ul li a {
+    font-size: large;
+    text-decoration: none;
+    color: #ffffff;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+  
+  footer {
+    background-color: #801300;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  
+  .banner {
+    display: inline-block;
+    margin: 50px;
+    width: 60%;
+    max-width: 490px;
+    min-width: 320px;
+    position: relative;
+    min-height: 300px;
+    max-height: 450px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-image: linear-gradient(to bottom right, #6e1202, #801300);
+    background-repeat: no-repeat;
+    text-align: left;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+  
+  .banner.segundo {
+    background-image: linear-gradient(to bottom right, #6e1202, #801300);
+  }
+  
+  .banner.terceiro {
+    background-image: linear-gradient(to bottom right, #6e1202, #801300);
+  }
+  
+  .container-envelope {
+    max-width: calc(100%);
+    padding: 15px;
+    color: #fff;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    min-height: 300px;
+    max-height: 450px;
+  }
+  
+  .col-xs-12 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    -webkit-align-self: flex-end;
+    -ms-flex-item-align: end;
+    align-self: flex-end;
+  }
+  
+  @media (min-width: 650px) {
+    .col-xs-12 {
+      -webkit-align-self: center;
+      -ms-flex-item-align: center;
+      align-self: center;
+    }
+  
+    .container-envelope {
+      max-width: calc(100% - 200px);
+    }
+  }
+  
+  div p {
+    clear: both;
+    font-family: 'Work Sans', Helvetica, sans-serif;
+    text-transform: none;
+    text-rendering: optimizeLegibility;
+    font-weight: 500;
+    line-height: 1.15;
+    word-wrap: break-word;
+    margin: 1em 0 0.5em;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    position: relative;
+    word-wrap: break-word;
+    font-size: 30px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    margin-left: 10px;
+  }
+  
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  a.acessar {
+    background-color: rgba(255, 255, 255, 0.35);
+    display: inline-block;
+    padding: 12px 18px;
+    color: #fff;
+    text-decoration: none;
+    font: 500 15px 'Work Sans', Helvetica, sans-serif;
+    line-height: 1.5;
+    text-align: center;
+    border: none !important;
+    position: relative;
+    border-radius: 30px;
+    text-transform: uppercase;
+    -webkit-transition: .1s all ease-in-out;
+    -moz-transition: .1s all ease-in-out;
+    -o-transition: .1s all ease-in-out;
+    transition: .1s all ease-in-out;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+  
+  a.acessar:hover {
+    background-color: rgba(255, 255, 255, 0.50);
+  }
+  
+  svg,
+  img.bannerimg {
+    fill: rgba(0, 0, 0, 0.1);
+    position: absolute;
+  }
+  
+  img.bannerimg {
+    max-width: 50%;
+  }
+  
+  .cirle-a {
+    bottom: -80px;
+    left: -80px;
+  }
+  
+  .cirle-b {
+    top: -30px;
+    right: 70%;
+  }
+  
+  .cirle-c {
+    top: -330px;
+    right: -300px;
+  }
+  
+  .cirle-d {
+    top: 195px;
+    right: 145px;
+  }
+  
+  img.bannerimg {
+    top: 0;
+    right: 0;
+  }
+  
+  html,
+  button,
+  input,
+  select,
+  textarea {
+    font-family: 'Source Sans Pro', Helvetica, sans-serif;
+    color: #90b0bf;
+  }
+  
+  .link-container {
+    text-align: center;
+  }
+  
+  .link-container a.acessar {
+    font-family: 'Source Sans Pro', Helvetica, sans-serif;
+    background-color: #90b0bf;
+    color: #fff;
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    line-height: 1.5;
+    text-decoration: none;
+    text-transform: none;
+    font-weight: 400;
+    letter-spacing: 1px;
+  }
+  
