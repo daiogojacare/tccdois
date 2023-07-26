@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="login.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+	<title>Tela de login</title>
+</head>
+
+<body>
+	
+	<script type="text/javascript" src="login.js"></script>
+	<header>
+		<img src="../fotos/cantinalogo2.png" alt="logo cantina Federal">
+		<nav>
+			<ul>
+				<li><a href="../homepage/homepage.html">Voltar</a></li>
+			<ul>
+		</nav>
+	</header>
+
+	<div class="form-wrap">
+		<div class="tabs">
+			<h3 class="signup-tab"><a class="active" href="#signup-tab-content">Registrar</a></h3>
+			<h3 class="login-tab"><a href="#login-tab-content">Login</a></h3>
+		</div>
+		<div class="tabs-content">
+			<div id="signup-tab-content" class="active">
+				<form class="signup-form" action="" method="post">
+					<input type="text" class="input" id="user_matricula" autocomplete="off" placeholder="Usuário">
+					<input type="text" class="input" id="user_nome" autocomplete="off" placeholder="Nome">
+					<input type="text" class="input" id="user_sobrenome" autocomplete="off" placeholder="Sobrenome">
+					<input type="email" class="input" id="user_email" autocomplete="off" placeholder="Email">
+					<input type="password" class="input" id="user_senha" autocomplete="off" placeholder="Senha">
+					<input type="submit" class="button" value="Registrar">
+				</form>
+				<div class="help-text">
+					<p>Ao se inscrever, você concorda com nossos</p>
+					<p><a href="#">Termos de serviço</a></p>
+				</div>
+			</div>
+			<div id="login-tab-content">
+				<form class="login-form" action="" method="post">
+					<input type="text" class="input" id="user_login" autocomplete="off" placeholder="Email ou Usuário">
+					<input type="password" class="input" id="user_senha" autocomplete="off" placeholder="Senha" size="30">
+					<input type="checkbox" class="checkbox" id="remember_me">
+					<label for="remember_me">Lembre de mim</label>
+					<input type="submit" class="button" value="Entrar">
+				</form>
+				<div class="help-text">
+					<p><a href="#">Esqueceu sua senha?</a></p>
+				</div>
+		</div>
+	</div>
+</body>
+
+</html>
