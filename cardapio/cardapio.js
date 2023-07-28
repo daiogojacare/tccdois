@@ -1,19 +1,27 @@
-(function($) {
+$(window).scroll(function() {
+  $(".slideanim").each(function(){
+    var pos = $(this).offset().top;
 
-    $("#menu-filters li a").click(function() {
-      $("#menu-filters li a").removeClass('active');
-      $(this).addClass('active');
-  
-      var selectedFilter = $(this).data("filter");
-  
-      $(".menu-restaurant").fadeOut();
-  
-      setTimeout(function() {
-        $(selectedFilter).slideDown();
-      }, 300);
-    });
-  
-    })(jQuery);
-  
-   
-  
+    var winTop = $(window).scrollTop();
+    if (pos < winTop + 600) {
+      $(this).addClass("slide");
+    }
+  });
+}); 
+
+$(document).ready(function(){ 
+  $(".navbar a, #service a").on('click', function(event) {
+
+  if (this.hash !== "") {
+    event.preventDefault();
+    var hash = this.hash;
+
+    $('html, body').animate({
+      scrollTop: $(hash).offset().top
+    }, 900, function(){
+
+      window.location.hash = hash;
+      });
+  } 
+});
+})

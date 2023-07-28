@@ -1,4 +1,4 @@
-jQuery(document).ready(function ($) {
+$(function ($) {
     tab = $('.tabs h3 a');
     tab.on('click', function (event) {
         event.preventDefault();
@@ -9,4 +9,3 @@ jQuery(document).ready(function ($) {
         $(tab_content).addClass('active');
     });
 });
-
