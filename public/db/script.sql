@@ -1,12 +1,12 @@
-CREATE DATABASE dblogin;
+CREATE DATABASE meubanco;
 
-use dblogin;
+use meubanco;
 
 CREATE TABLE users(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR (100) NOT NULL,
     email VARCHAR (100) NOT NULL,
-    idade INTEGER NOT NULL,
+    localizacao VARCHAR (100) NOT NULL,
     pass INTEGER NOT NULL
 
 );

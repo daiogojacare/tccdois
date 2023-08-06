@@ -1,80 +1,80 @@
 const express = require('express');
-const session = require("express-session");
+const session = require('express-session');
 const path = require('path');
 const app = express();
-
-const bodyParser = require("body-parser");
-
-const mysql = require("mysql"); 
+const bodyParser = require('body-parser');
+const mysql = require('mysql');
 const { resolveSoa } = require('dns');
 
-app.use(session({secret: "ssshhhhh"}));
-
+app.use(session({secret:'diogoebernardolindos'}));
 app.use(express.static('public'))
-
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '/public'));
-
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}))
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+app.use('/public', express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, '/views'));
 
 function conectiondb(){
     var con = mysql.createConnection({
         host: 'localhost', 
         user: 'root',
         password: '', 
-        database: 'dblogin'
+        database: 'meubanco'
     });
 
     con.connect((err) => {
         if (err) {
-            console.log('Erro connecting to database...', err)
+            console.log('Erro na conexão com o banco de dados.', err)
             return
         }
-        console.log('Connection established!')
+        console.log('Conexão estável!')
     });
 
     return con;
 }
 
 app.get('/', (req, res) => {
-    var message = ' ';
-    req.session.destroy();
-    res.render('views/registro', { message: message });
+    res.sendFile(__dirname + '/views/homepage.html');
 });
 
-app.get('/views/registro', (req, res)=>{
-    res.redirect('../');
-    //res.render('views/registro', {message:message});
+app.get('/views/homepage.html', (req, res)=>{
+    res.redirect('/');
 });
 
-app.get("/views/home", function (req, res){
+app.get('/login', (req, res) => {
+    res.sendFile(__dirname + '/views/login.html');
+});
+
+app.get('/cardapio', (req, res) => {
+    res.sendFile(__dirname + '/views/cardapio.html');
+});
+
+app.get('/marmitas', (req, res) => {
+    res.sendFile(__dirname + '/views/marmitas.html');
+});
+
+app.get("/views/homepage.html", function (req, res){
     
     if (req.session.user){
         var con = conectiondb();
         var query2 = 'SELECT * FROM users WHERE email LIKE ?';
         con.query(query2, [req.session.user], function (err, results){
-            res.render('views/home', {message:results});
+            res.render('/', {message:results});
             
         });
         
     }else{
-        res.redirect("/");
+        res.redirect("/login");
     }
     
-});
-
-app.get("/views/login", function(req, res){
-    var message = ' ';
-    res.render('views/login', {message:message});
 });
 
 app.post('/register', function (req, res){
 
     var username = req.body.nome;
-    var pass = req.body.pwd;
+    var pass = req.body.senha;
     var email = req.body.email;
-    var idade = req.body.idade;
+    var localizacao = req.body.localizacao;
 
     var con = conectiondb();
 
@@ -83,25 +83,26 @@ app.post('/register', function (req, res){
     con.query(queryConsulta, [email], function (err, results){
         if (results.length > 0){            
             var message = 'E-mail já cadastrado';
-            res.render('views/registro', { message: message });
+            res.render('/login', { message: message });
         }else{
             var query = 'INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?)';
 
-            con.query(query, [username, email, idade, pass], function (err, results){
+            con.query(query, [username, email, localizacao, pass], function (err, results){
                 if (err){
                     throw err;
                 }else{
                     console.log ("Usuario adicionado com email " + email);
                     var message = "ok";
-                    res.render('views/registro', { message: message });
+                    res.render('/login', { message: message });
                 }        
             });
         }
     });
-});
+}); 
+
 app.post('/log', function (req, res){
     var email = req.body.email;
-    var pass = req.body.pass;
+    var pass = req.body.senha2;
     var con = conectiondb();
     var query = 'SELECT * FROM users WHERE pass = ? AND email LIKE ?';
     
@@ -109,44 +110,34 @@ app.post('/log', function (req, res){
         if (results.length > 0){
             req.session.user = email;           
             console.log("Login feito com sucesso!");
-            res.render('views/home', {message:results});
+            res.render('/', {message:results});
         }else{
             var message = 'Login incorreto!';
-            res.render('views/login', { message: message });
+            res.render('/', { message: message });
         }
     });
 });
 
-app.post('/update', function (req, res){
-    
-    console.log("entrou");
-    
-    var email = req.body.email;
-    var pass = req.body.pwd;
-    var username = req.body.nome;
-    var idade = req.body.idade;
-    var con = conectiondb();
-    var query = 'UPDATE users SET username = ?, pass = ?, idade = ? WHERE email LIKE ?';
-    
-    con.query(query, [username, pass, idade, req.session.user], function (err, results){
-        
-        var query2 = 'SELECT * FROM users WHERE email LIKE ?';
-        con.query(query2, [req.session.user], function (err, results){
-            res.render('views/home', {message:results});    
-        });
-        
-    });
+
+/*
+app.post(   /cadastro", (req, res) => {
+  const { nome, endereco, idade, cpf } = req.body;
+  if (!nome || !endereco || !idade || !cpf) {
+    res.status(400).send("Nome e endereço são campos obrigatórios.");
+    return;
+  }
+
+  const cliente = { nome, endereco, idade, cpf };
+  connection.query("INSERT INTO clientes SET ?", cliente, (err, result) => {
+    if (err) throw err;
+    console.log(`Cliente ${nome} cadastrado com sucesso!`);
+    res.redirect("/");
+  });
 });
 
-app.post('/delete', function (req, res){
-    
-    var username = req.body.nome;
-    var con = conectiondb();
-    var query = 'DELETE FROM users WHERE email LIKE ?';
-    
-    con.query(query, [req.session.user], function (err, results){
-        res.redirect ('/');
-    });
-});
+*/
 
-app.listen(3000, () => console.log(`App listening on port!`));
+
+
+
+app.listen(3000, () => console.log(`Servidor rodando`));
