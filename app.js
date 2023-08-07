@@ -71,8 +71,8 @@ app.get("/views/homepage.html", function (req, res){
 
 app.post('/register', function (req, res){
 
-    var username = req.body.nome;
-    var pass = req.body.senha;
+    var usuarionome = req.body.nome;
+    var senha = req.body.senha;
     var email = req.body.email;
     var localizacao = req.body.localizacao;
 
@@ -83,16 +83,16 @@ app.post('/register', function (req, res){
     con.query(queryConsulta, [email], function (err, results){
         if (results.length > 0){            
             var message = 'E-mail já cadastrado';
-            res.render('/login');
+            res.redirect('/login');
         }else{
             var query = 'INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?)';
 
-            con.query(query, [username, email, localizacao, pass], function (err, results){
+            con.query(query, [usuarionome, email, localizacao, senha], function (err, results){
                 if (err){
                     throw err;
                 }else{
                     console.log ("Usuario adicionado com email " + email);
-                    res.render('/login');
+                    res.redirect('/login', { message: message });
                 }        
             });
         }
@@ -101,11 +101,11 @@ app.post('/register', function (req, res){
 
 app.post('/log', function (req, res){
     var email = req.body.email;
-    var pass = req.body.senha2;
+    var senha = req.body.senha2;
     var con = conectiondb();
     var query = 'SELECT * FROM users WHERE pass = ? AND email LIKE ?';
     
-    con.query(query, [pass, email], function (err, results){
+    con.query(query, [senha, email], function (err, results){
         if (results.length > 0){
             req.session.user = email;           
             console.log("Login feito com sucesso!");
@@ -135,8 +135,151 @@ app.post(   /cadastro", (req, res) => {
 });
 
 */
-
-
-
+/*
+// ADICIONAR PRODUTOS NO CARDÁPIO
+  
+  app.get("/addcardapio", (req, res) => {
+    res.sendFile(__dirname + "/views/addcardapio.html");
+  });
+  
+  app.post("/addcardapio", (req, res) => {
+    const { id, nome, quantidade, valor } = req.body;
+    if (!id || !descricao || !quantidade || !valor) {
+      res.status(400).send("Todos os campos são obrigatórios.");
+      return;
+    }
+  
+    const produtos = { id, nome, quantidade, valor };
+    connection.query("INSERT INTO produtos SET ?", produtos, (err, result) => {
+      if (err) throw err;
+      console.log(`Produto ${id} cadastrado com sucesso!`);
+      res.redirect("/");
+    });
+  });
+  
+  // Rota para processar a listagem
+  app.get('/cardapio', (req, res) => {
+  
+    // Consulta no banco de dados
+    connection.query(`SELECT * FROM produtos`, (error, results, fields) => {
+      if (error) throw error;
+  
+      // Exibição dos resultados
+      let html = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Consulta de Produtos</title>
+          </head>
+          <body>
+            <h1>Produtos encontrados</h1>
+            <table>
+              <tr>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+                <th>Valor</th>
+              </tr>
+      `;
+  
+      results.forEach((produtos) => {
+        html += `
+          <tr>
+            <td>${produtos.id}</td>
+            <td>${produtos.descricao}</td>
+            <td>${produtos.quantidade}</td>
+            <td>${produtos.valor}</td>
+          </tr>
+        `;
+      });
+  
+      html += `
+            </table>
+            <a href="/">Voltar</a>
+          </body>
+        </html>
+      `;
+  
+      res.send(html);
+    });
+  });
+  
+  // Rota para exibir o formulário de consulta
+  app.get('/consultaprodutos', (req, res) => {
+    res.send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Consulta de produtos</title>
+        </head>
+        <body>
+          <h1>Consulta de Produtos</h1>
+          <form method="POST" action="/consultaprodutos">
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id"><br><br>
+            <button type="submit">Consultar</button>
+          </form>
+        </body>
+      </html>
+    `);
+  });
+  
+  // Rota para processar a consulta
+  app.post('/consultaprodutos', (req, res) => {
+    //const nome = req.body.nome;
+    const {
+      id
+    } = req.body;
+    //const endereco = req.body.endereco;
+  
+    // Consulta no banco de dados
+    connection.query(`SELECT * FROM produtos WHERE id LIKE '%${id}%'`, (error, results, fields) => {
+      if (error) throw error;
+  
+      // Exibição dos resultados
+      let html = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Produtos</title>
+          </head>
+          <body>
+            <h1>Produtos encontrados</h1>
+            <table>
+              <tr>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+                <th>Valor</th>
+              </tr>
+      `;
+  
+      results.forEach((produtos) => {
+        html += `
+          <tr>
+            <td>${produtos.id}</td>
+            <td>${produtos.descricao}</td>
+            <td>${produtos.quantidade}</td>
+            <td>${produtos.valor}</td>
+          </tr>
+        `;
+      });
+  
+      html += `
+            </table>
+            <a href="/">Voltar</a>
+          </body>
+        </html>
+      `;
+  
+      res.send(html);
+    });
+  });
+  
+  connection.connect((err) => {
+    if (err) throw err;
+    console.log("Conectado ao banco de dados MySQL!");
+  });
+*/
 
 app.listen(3000, () => console.log(`Servidor rodando`));
