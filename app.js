@@ -18,7 +18,7 @@ function conectiondb(){
     var con = mysql.createConnection({
         host: 'localhost', 
         user: 'root',
-        password: '', 
+        password: 'aluno01', 
         database: 'meubanco'
     });
 
@@ -83,7 +83,7 @@ app.post('/register', function (req, res){
     con.query(queryConsulta, [email], function (err, results){
         if (results.length > 0){            
             var message = 'E-mail já cadastrado';
-            res.render('/login', { message: message });
+            res.render('/login');
         }else{
             var query = 'INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?)';
 
@@ -92,8 +92,7 @@ app.post('/register', function (req, res){
                     throw err;
                 }else{
                     console.log ("Usuario adicionado com email " + email);
-                    var message = "ok";
-                    res.render('/login', { message: message });
+                    res.render('/login');
                 }        
             });
         }
@@ -113,7 +112,7 @@ app.post('/log', function (req, res){
             res.render('/', {message:results});
         }else{
             var message = 'Login incorreto!';
-            res.render('/', { message: message });
+            res.render('/login', { message: message });
         }
     });
 });
